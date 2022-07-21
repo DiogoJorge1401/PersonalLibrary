@@ -12,7 +12,6 @@ export class BookController {
       comments: false,
       __v: false,
     });
-
     return result.map(({ _id, title, commentcount }) => ({
       _id,
       title,
@@ -21,7 +20,7 @@ export class BookController {
   }
 
   async findById(_id: string) {
-    let result = "no book exists";
+    const result = "no book exists";
     try {
       const book = await BookModel.findById(_id).select({ __v: false });
       if (!book) return result;
@@ -42,6 +41,17 @@ export class BookController {
       ).select({ __v: false });
       if (!book) return result;
       return book;
+    } catch (error) {
+      return result;
+    }
+  }
+
+  async deleteById(_id: string) {
+    const result = "no book exists";
+    try {
+      const book = await BookModel.findByIdAndRemove(_id);
+      if (!book) return result;
+      return "delete successful";
     } catch (error) {
       return result;
     }

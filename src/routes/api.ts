@@ -40,7 +40,8 @@ export default function (app: Application) {
       return res.json(result);
     })
     .delete(async (req, res) => {
-      let bookid = req.params.id;
-      //if successful response will be 'delete successful'
+      let bookId = req.params.id;
+      const result = await bookController.deleteById(bookId);
+      return res.json(result);
     });
 }
