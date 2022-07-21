@@ -18,4 +18,15 @@ export class BookController {
       commentcount,
     }));
   }
+
+  async findById(_id: string) {
+    let result = "no book exists";
+    try {
+      const book = await BookModel.findById(_id).select({ __v: false });
+      if (!book) return result;
+      return book;
+    } catch (error) {
+      return result;
+    }
+  }
 }

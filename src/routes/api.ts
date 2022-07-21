@@ -14,11 +14,8 @@ export default function (app: Application) {
   app
     .route("/api/books")
     .get(async (req, res) => {
-      //response will be array of book objects
-      //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
       const result = await bookController.find()
       return res.json(result)
-      
     })
     .post(async (req, res) => {
       let title = req.body.title;
@@ -32,8 +29,9 @@ export default function (app: Application) {
   app
     .route("/api/books/:id")
     .get(async (req, res) => {
-      let bookid = req.params.id;
-      //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
+      let bookId = req.params.id;
+      const result = await bookController.findById(bookId);
+      return res.json(result)
     })
     .post(async (req, res) => {
       let bookid = req.params.id;

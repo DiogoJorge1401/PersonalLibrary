@@ -67,11 +67,28 @@ suite("Functional Tests", () => {
 
     suite("GET /api/books/[id] => book object with [id]", () => {
       test("Test GET /api/books/[id] with id not in db", (done) => {
-        //done();
+        chai
+          .request(server)
+          .get("/api/books/62d94af87ecc0c5a670100a5")
+          .then((res) => {
+            assert.equal(res.status, 200);
+            assert.equal(res.body, "no book exists");
+            done()
+          });
       });
 
       test("Test GET /api/books/[id] with valid id in db", (done) => {
-        //done();
+         chai
+           .request(server)
+           .get(`/api/books/${id1}`)
+           .then((res) => {
+             assert.equal(res.status, 200);
+             assert.property(res.body, "_id");
+             assert.property(res.body, "title");
+             assert.property(res.body, "comments");
+             assert.isArray(res.body.comments);
+             done();
+           });
       });
     });
 
