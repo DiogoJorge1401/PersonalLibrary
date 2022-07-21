@@ -23,7 +23,8 @@ export default function (app: Application) {
       return res.json(result);
     })
     .delete(async (req, res) => {
-      //if successful response will be 'complete delete successful'
+      const result = await bookController.delete()
+      return res.json(result)
     });
 
   app

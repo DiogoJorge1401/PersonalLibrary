@@ -46,6 +46,11 @@ export class BookController {
     }
   }
 
+  async delete() {
+    await BookModel.remove();
+    return "complete delete successful";
+  }
+
   async deleteById(_id: string) {
     const result = "no book exists";
     try {
