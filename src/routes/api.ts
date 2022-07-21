@@ -7,20 +7,20 @@
  */
 
 import { Application } from "express";
-import { BookController } from '../controllers/bookController';
+import { BookController } from "../controllers/bookController";
 
 export default function (app: Application) {
-  const bookController = new BookController()
+  const bookController = new BookController();
   app
     .route("/api/books")
     .get(async (req, res) => {
-      const result = await bookController.find()
-      return res.json(result)
+      const result = await bookController.find();
+      return res.json(result);
     })
     .post(async (req, res) => {
       let title = req.body.title;
-      const result = await bookController.create({title})
-      return res.json(result)
+      const result = await bookController.create({ title });
+      return res.json(result);
     })
     .delete(async (req, res) => {
       //if successful response will be 'complete delete successful'
@@ -31,12 +31,13 @@ export default function (app: Application) {
     .get(async (req, res) => {
       let bookId = req.params.id;
       const result = await bookController.findById(bookId);
-      return res.json(result)
+      return res.json(result);
     })
     .post(async (req, res) => {
-      let bookid = req.params.id;
+      let bookId = req.params.id;
       let comment = req.body.comment;
-      //json res format same as .get
+      const result = await bookController.addComment(comment, bookId);
+      return res.json(result);
     })
     .delete(async (req, res) => {
       let bookid = req.params.id;
