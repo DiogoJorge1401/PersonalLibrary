@@ -1,6 +1,6 @@
-import express from "express";
 import cors from "cors";
 import "dotenv/config";
+import express from "express";
 import "./database/connection";
 
 import apiRoutes from "./routes/api";
@@ -32,7 +32,7 @@ app.use(function (req, res, next) {
 
 const PORT = process.env.PORT || 3000;
 //Start our server and tests!
-const listener = app.listen(PORT, function () {
+app.listen(PORT, function () {
   console.log(`Your app is listening on port ${PORT}`);
   if (process.env.NODE_ENV === "test") {
     console.log("Running Tests...");
