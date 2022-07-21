@@ -15,42 +15,8 @@ import { suite, test } from "mocha";
 chai.use(chaiHttp);
 
 let id1 = "";
-let id2 = "";
 
 suite("Functional Tests", () => {
-  /*
-   * ----[EXAMPLE TEST]----
-   * Each test should completely test the response of the API end-point including response status code!
-   */
-  test("#example Test GET /api/books", (done) => {
-    chai
-      .request(server)
-      .get("/api/books")
-      .end(function (err, res) {
-        assert.equal(res.status, 200);
-        assert.isArray(res.body, "response should be an array");
-        assert.property(
-          res.body[0],
-          "commentcount",
-          "Books in array should contain commentcount"
-        );
-        assert.property(
-          res.body[0],
-          "title",
-          "Books in array should contain title"
-        );
-        assert.property(
-          res.body[0],
-          "_id",
-          "Books in array should contain _id"
-        );
-        done();
-      });
-  });
-  /*
-   * ----[END of EXAMPLE TEST]----
-   */
-
   suite("Routing tests", () => {
     suite(
       "POST /api/books with title => create book object/expect book object",
@@ -64,6 +30,7 @@ suite("Functional Tests", () => {
               assert.equal(res.status, 200);
               assert.equal(res.body.title, "book_title");
               assert.isOk(res.body._id);
+              id1 = res.body._id;
               done();
             });
         });
@@ -84,7 +51,17 @@ suite("Functional Tests", () => {
 
     suite("GET /api/books => array of books", () => {
       test("Test GET /api/books", (done) => {
-        //done();
+        chai
+          .request(server)
+          .get("/api/books")
+          .then((res) => {
+            assert.equal(res.status, 200);
+            assert.isArray(res.body);
+            assert.property(res.body[0], "commentcount");
+            assert.property(res.body[0], "title");
+            assert.property(res.body[0], "_id");
+            done();
+          });
       });
     });
 

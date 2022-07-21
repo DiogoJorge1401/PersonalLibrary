@@ -16,6 +16,9 @@ export default function (app: Application) {
     .get(async (req, res) => {
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
+      const result = await bookController.find()
+      return res.json(result)
+      
     })
     .post(async (req, res) => {
       let title = req.body.title;

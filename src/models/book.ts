@@ -12,7 +12,7 @@ const schema = new Schema<IBook>({
 });
 
 schema.virtual("commentcount").get(function () {
-  return this.comments.length;
+  return this.comments?.length ?? 0;
 });
 
 const BookModel = model<IBook>("Book", schema);
